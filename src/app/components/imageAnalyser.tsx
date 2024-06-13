@@ -71,7 +71,7 @@ export const ImageAnalyser = ({ id }: ImageAnalyserProps) => {
 
   return (
     <form
-      className='flex flex-col items-center gap-2 mt-4'
+      className='flex flex-col items-center gap-4 mt-4'
       onSubmit={handleSubmit}
     >
       {preview && (

@@ -7,7 +7,7 @@ export default function Home() {
   const id = randomUUID();
 
   return (
-    <div className='flex flex-col items-center gap-2 py-4 text-center'>
+    <div className='flex flex-col items-center gap-2 py-6 text-center'>
       <Image
         className='mb-4'
         src={Logo}
