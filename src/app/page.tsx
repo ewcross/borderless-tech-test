@@ -1,8 +1,11 @@
+import { randomUUID } from 'crypto';
 import Image from "next/image";
 import Logo from '../../public/borderless.svg';
-import { ImageAnalyzer } from "./components/imageAnalyzer";
+import { ImageAnalyser } from "./components/imageAnalyser";
 
 export default function Home() {
+  const id = randomUUID();
+
   return (
     <div className='flex flex-col items-center gap-2 pt-4 text-center'>
       <Image
@@ -23,7 +26,7 @@ export default function Home() {
           Please make sure your image is clear, in focus, and without glare and reflections
         </p>
       </div>
-      <ImageAnalyzer />
+      <ImageAnalyser id={id} />
     </div>
   );
 }

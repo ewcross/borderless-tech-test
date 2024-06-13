@@ -7,13 +7,15 @@ import { PassportData } from "../types";
 import { putImageToS3 } from "../utils/putImageToS3";
 import { Skeleton } from "./ui/skeleton";
 
-export const ImageAnalyzer = () => {
+type ImageAnalyserProps = { id: string };
+
+export const ImageAnalyser = ({ id }: ImageAnalyserProps) => {
   const [preview, setPreview] = useState<string | undefined>();
   const [passportData, setPassportData] = useState<PassportData | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
-  const objectKey = 'images/unique-key';
+  const objectKey = `images/${id}`;
 
   const handleError = (errorMessage: string): void => {
     setErrorMessage(errorMessage);
