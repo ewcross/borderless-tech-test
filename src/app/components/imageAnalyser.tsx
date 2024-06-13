@@ -104,7 +104,7 @@ export const ImageAnalyser = ({ id }: ImageAnalyserProps) => {
       )}
       {isLoading && <Skeleton />}
       {errorMessage && (
-        <p className='text-sm w-1/4 text-wrap'>{errorMessage}</p>
+        <p className='text-sm w-1/2 text-wrap'>{errorMessage}</p>
       )}
       {passportData && (
         <div className='flex flex-col items-center gap-2 text-md'>
