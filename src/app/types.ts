@@ -6,7 +6,9 @@ export type PassportData = {
   expiryDate: string;
 };
 
-export type Result<T> = { data: T } | { userError: string };
+export type UserError = { userError: string };
+
+export type Result<T> = { data: T } | UserError;
 
 export type S3 = {
   client: S3Client;

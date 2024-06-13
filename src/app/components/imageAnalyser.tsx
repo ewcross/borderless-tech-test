@@ -5,6 +5,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { analyzeImage, getPresignedPutUrl } from "../actions/s3actions";
 import { PassportData } from "../types";
 import { putImageToS3 } from "../utils/putImageToS3";
+import { isError } from "../utils/isError";
 import { Skeleton } from "./ui/skeleton";
 
 type ImageAnalyserProps = { id: string };
@@ -44,19 +45,19 @@ export const ImageAnalyser = ({ id }: ImageAnalyserProps) => {
 
     const formData = new FormData(e.currentTarget);
     const urlResult = await getPresignedPutUrl(objectKey);
-    if ('userError' in urlResult) {
+    if (isError(urlResult)) {
       handleError(urlResult.userError);
       return undefined;
     }
 
     const uploadResult = await putImageToS3(formData, urlResult.data);
-    if ('userError' in uploadResult) {
+    if (isError(uploadResult)) {
       handleError(uploadResult.userError);
       return undefined;
     }
 
     const analysisResult = await analyzeImage(objectKey);
-    if ('userError' in analysisResult) {
+    if (isError(analysisResult)) {
       handleError(analysisResult.userError);
     } else {
       setPassportData(analysisResult.data);

@@ -52,7 +52,7 @@ export const getPresignedPutUrl = async (key: string): Promise<Result<string>> =
 
   const command = new PutObjectCommand({ Bucket: S3.bucket, Key: key });
   const url = await getSignedUrl(S3.client, command, { expiresIn: 3600 });
-  return { data: url }
+  return { data: url };
 };
 
 export const analyzeImage = async (key: string): Promise<Result<PassportData>> => {
