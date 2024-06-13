@@ -44,21 +44,22 @@ export const ImageAnalyser = ({ id }: ImageAnalyserProps) => {
     setIsLoading(true);
 
     const formData = new FormData(e.currentTarget);
+
     const urlResult = await getPresignedPutUrl(objectKey);
     if (isError(urlResult)) {
-      handleError(urlResult.userError);
+      handleError(urlResult.uiError);
       return undefined;
     }
 
     const uploadResult = await putImageToS3(formData, urlResult.data);
     if (isError(uploadResult)) {
-      handleError(uploadResult.userError);
+      handleError(uploadResult.uiError);
       return undefined;
     }
 
     const analysisResult = await analyzeImage(objectKey);
     if (isError(analysisResult)) {
-      handleError(analysisResult.userError);
+      handleError(analysisResult.uiError);
     } else {
       setPassportData(analysisResult.data);
       setIsLoading(false);

@@ -47,7 +47,7 @@ const getTextract = (): Textract | undefined => {
 export const getPresignedPutUrl = async (key: string): Promise<Result<string>> => {
   const S3 = getS3();
   if (!S3) {
-    return { userError: 'We are having trouble on our end, please try again later' };
+    return { uiError: 'We are having trouble on our end, please try again later' };
   }
 
   const command = new PutObjectCommand({ Bucket: S3.bucket, Key: key });
@@ -58,7 +58,7 @@ export const getPresignedPutUrl = async (key: string): Promise<Result<string>> =
 export const analyzeImage = async (key: string): Promise<Result<PassportData>> => {
   const textract = getTextract();
   if (!textract) {
-    return { userError: 'We are having trouble on our end, please try again later' };
+    return { uiError: 'We are having trouble on our end, please try again later' };
   }
 
   const analyzeIDCommand = new AnalyzeIDCommand({
@@ -74,12 +74,12 @@ export const analyzeImage = async (key: string): Promise<Result<PassportData>> =
 
   const response = await textract.client.send(analyzeIDCommand);
   if (response.$metadata.httpStatusCode !== 200) {
-    return { userError: 'An error occurred while analyzing the image' };
+    return { uiError: 'An error occurred while analyzing the image' };
   }
 
   const fields = response.IdentityDocuments?.[0].IdentityDocumentFields
   if (!fields) {
-    return { userError: errorMessage };
+    return { uiError: errorMessage };
   }
 
   const dateOfBirth = fields.find(elem =>
@@ -91,7 +91,7 @@ export const analyzeImage = async (key: string): Promise<Result<PassportData>> =
   )?.ValueDetection?.Text;
 
   if (!dateOfBirth || !expiryDate) {
-    return { userError: errorMessage };
+    return { uiError: errorMessage };
   }
 
   return {
