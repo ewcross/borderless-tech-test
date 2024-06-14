@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import Image from "next/image";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -10,7 +10,7 @@ import { Skeleton } from "./ui/skeleton";
 
 type ImageAnalyserProps = { id: string };
 
-export const ImageAnalyser = ({ id }: ImageAnalyserProps) => {
+export default function ImageAnalyser({ id }: ImageAnalyserProps) {
   const [preview, setPreview] = useState<string | undefined>();
   const [passportData, setPassportData] = useState<PassportData | undefined>();
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,7 @@ export const ImageAnalyser = ({ id }: ImageAnalyserProps) => {
     setErrorMessage(undefined);
     const file = e.target.files?.[0];
     if (!file) {
-      setErrorMessage('There was an error selecting your file, please try again.');
+      setErrorMessage("There was an error selecting your file, please try again.");
     } else {
       const fileReader = new FileReader();
       fileReader.onload = () => {
@@ -73,49 +73,49 @@ export const ImageAnalyser = ({ id }: ImageAnalyserProps) => {
 
   return (
     <form
-      className='flex flex-col items-center gap-4 mt-4'
+      className="flex flex-col items-center gap-4 mt-4"
       onSubmit={handleSubmit}
     >
       {preview && (
         <Image
-          className='h-auto w-[300px] rounded-lg'
+          className="h-auto w-[300px] rounded-lg"
           src={preview}
-          alt='File upload preview'
+          alt="File upload preview"
           height={0}
           width={0}
         />
       )}
-      <label className={`w-fit border-2 rounded-lg border-blue-500 px-2 cursor-pointer ${(isLoading || passportData) && 'hidden'}`}>
-        {preview ? 'Choose another file' : 'Choose a file'}
+      <label className={`w-fit border-2 rounded-lg border-blue-500 px-2 cursor-pointer ${(isLoading || passportData) && "hidden"}`}>
+        {preview ? "Choose another file" : "Choose a file"}
         <input
-          className='hidden'
-          id='file'
-          name='file'
-          type='file'
-          accept='image/png,image/jpeg'
+          className="hidden"
+          id="file"
+          name="file"
+          type="file"
+          accept="image/png,image/jpeg"
           onChange={handleInputChange}
         ></input>
       </label>
       {preview && !isLoading && !passportData && (
         <button
-          className='w-fit rounded-lg border-2 bg-blue-500 border-blue-500 px-2 text-white'
-          type='submit'
+          className="w-fit rounded-lg border-2 bg-blue-500 border-blue-500 px-2 text-white"
+          type="submit"
         >
           Analyse
         </button>
       )}
       {isLoading && <Skeleton />}
       {errorMessage && (
-        <p className='text-sm w-1/2 text-wrap'>{errorMessage}</p>
+        <p className="text-sm w-1/2 text-wrap">{errorMessage}</p>
       )}
       {passportData && (
-        <div className='flex flex-col items-center gap-2 text-md'>
+        <div className="flex flex-col items-center gap-2 text-md">
           <div>
-            <p>Date of Birth: {passportData?.dateOfBirth}</p>
+            <p>Date of birth: {passportData?.dateOfBirth}</p>
             <p>Expiry date: {passportData?.expiryDate}</p>
           </div>
           <button
-            className='w-fit border-2 rounded-lg border-blue-500 px-2 cursor-pointer'
+            className="w-fit border-2 rounded-lg border-blue-500 px-2 cursor-pointer"
             onClick={handleOnAnalyzeNewClick}
           >
             Analyse another image
@@ -124,4 +124,4 @@ export const ImageAnalyser = ({ id }: ImageAnalyserProps) => {
       )}
     </form>
   );
-};
+}
